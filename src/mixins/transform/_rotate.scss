@@ -1,0 +1,11 @@
+@mixin rotate($degrees) {
+  @include transform( rotate($degrees) );
+}
+
+@mixin rotateX($degrees) {
+  @include transform( rotateX($degrees) );
+}
+
+@mixin rotateY($degrees) {
+  @include transform( rotateY($degrees) );
+}

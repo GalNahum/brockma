@@ -1,0 +1,22 @@
+@mixin _make-horizontal-border-color($color, $direction: $start-direction) {
+  $validator: border-color-validator( $color );
+  @include _make-horizontal-border-property($color, $direction, color);
+}
+
+@mixin border-start-color($value) {
+  @include _make-horizontal-border-color($value);
+}
+
+@mixin border-end-color($value) {
+  @include _make-horizontal-border-color($value, $end-direction);
+}
+
+@mixin border-h-color($args...) {
+  @include border-start-color( nth($args, 1) );
+  @include border-end-color( _get-mixin-second-argument($args) );
+}
+
+@mixin border-v-color($args...) {
+  border-top-style: nth($args, 1);
+  border-bottom-style: _get-mixin-second-argument($args);
+}

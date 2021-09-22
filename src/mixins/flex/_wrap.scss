@@ -1,0 +1,14 @@
+@mixin flex-wrap( $wrap: wrap ) {
+  $validator: flex-wrap-validator($direction);
+  -webkit-flex-wrap: $wrap; /* Safari 6.1+ */
+  flex-wrap: $wrap;
+  -ms-flex-wrap: $wrap;
+}
+
+@mixin flex-wrap-reverse() {
+  @include flex-wrap(wrap-reverse)
+}
+
+@mixin flex-nowrap() {
+  @include flex-wrap(nowrap)
+}

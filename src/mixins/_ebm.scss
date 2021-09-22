@@ -1,0 +1,156 @@
+@mixin element($name, $parent: this(), $child: null) {
+  $selector: this();
+  //@debug "$parent: #{$parent}";
+  //@debug "$selector: #{$selector}";
+  @if( $parent == $selector and $child == null ) {
+    @if( is-block($selector) ) {
+      @if( is-modifier($name) ) {
+        &#{$name} {
+          @content;
+        }
+      }
+      @else if( is-modifier($selector) ) {
+        $block_modifier_index: str-index($selector, '--');
+        $block: str_slice($selector, 0, $block_modifier_index - 1);
+        #{$block}__#{$name} {
+          @content;
+        }
+      }
+      @else if( has-pseudo($selector) and not is-modifier($selector) ) {
+        $block_modifier_index: str-index($selector, ':');
+        $block: str_slice($selector, 0, $block_modifier_index - 1);
+        #{$block}__#{$name} {
+          @content;
+        }
+      }
+      @else {
+        &__#{$name} {
+          @content;
+        }
+      }
+    }
+    @else {
+      @if( is-modifier($name) ) {
+        &#{$name} {
+          @content;
+        }
+      }
+      @else {
+        @if( is-modifier($name) ) {
+          &#{$name} {
+            @content;
+          }
+        }
+        @else if( is-modifier($selector) ) {
+          $block_modifier_index: str-index($selector, '--');
+          $block: str_slice($selector, 0, $block_modifier_index - 1);
+          #{$block}-#{$name} {
+            @content;
+          }
+        }
+        @else if( has-pseudo($selector) and not is-modifier($selector) ) {
+          $block_modifier_index: str-index($selector, ':');
+          $block: str_slice($selector, 0, $block_modifier_index - 1);
+          #{$block}-#{$name} {
+            @content;
+          }
+        }
+        @else {
+          &-#{$name} {
+            @content;
+          }
+        }
+      }
+    }
+  }
+  @else {
+    @if( is-block($parent) ) {
+      #{$child}#{$parent}__#{$name} {
+        @content;
+      }
+    }
+    @else {
+      #{$child}#{$parent}-#{$name} {
+        @content;
+      }
+    }
+  }
+}
+
+@mixin modifier($name, $this: this()) {
+  @include element(--#{$name}, $this) {
+    @content;
+  }
+}
+
+@mixin children($name, $this: this()) {
+  $pseudo_selector: ">";
+  $mixin_name: "children";
+  $error: _has-pseudo-error($name, $this, $pseudo_selector, $mixin_name);
+  @if( $name == null ) {
+    @if( $error ) {
+      @error $error
+    }
+    #{$pseudo_selector} #{$this} {
+      @content;
+    }
+  }
+  @else {
+    @if( $error ) {
+      @error $error
+    }
+    @include element($name, $this, $pseudo_selector) {
+      @content;
+    }
+  }
+}
+
+@mixin immediately-after($name: null, $this: this()) {
+  $pseudo_selector: "+";
+  $mixin_name: "immediately-after";
+  $error: _has-pseudo-error($name, $this, $pseudo_selector, $mixin_name);
+  @if( $name == null ) {
+    @if( $error ) {
+      @error $error
+    }
+    #{$pseudo_selector} #{$this} {
+      @content;
+    }
+  }
+  @else {
+    @if( $error ) {
+      @error $error
+    }
+    @include element($name, $this, $pseudo_selector) {
+      @content;
+    }
+  }
+}
+
+@mixin preceded-by($name, $this: this()) {
+  $pseudo_selector: "~";
+  $mixin_name: "preceded-by";
+  $error: _has-pseudo-error($name, $this, $pseudo_selector, $mixin_name);
+  @if( $name == null ) {
+    @if( $error ) {
+      @error $error
+    }
+    #{$pseudo_selector} #{$this} {
+      @content;
+    }
+  }
+  @else {
+    @if( $error ) {
+      @error $error
+    }
+    @include element($name, $this, $pseudo_selector) {
+      @content;
+    }
+  }
+}
+
+@mixin block($name) {
+  .#{$name} {
+    @content;
+  }
+}

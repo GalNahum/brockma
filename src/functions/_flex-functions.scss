@@ -1,0 +1,9 @@
+@function flex-direction-validator( $value ) {
+  $allowed_values: (row, row-reverse, column, column-reverse, inherit, initial, revert, unset);
+  @return unknown-named-property-validator("unknown_flex_direction", "flex-direction", $value, $allowed_values);
+}
+
+@function flex-wrap-validator( $value ) {
+  $allowed_values: (nowrap, wrap, wrap-reverse, inherit, initial, revert, unset);
+  @return unknown-named-property-validator("unknown_flex_wrap", "flex-wrap", $value, $allowed_values);
+}

@@ -1,0 +1,40 @@
+{
+  "name": "brockma",
+  "version": "0.0.1",
+  "description": "A Sass toolkit library that contain collections of Sass variables, functions and mixins which are based on the Start-End Direction approach.",
+  "author": "Gal Nahum",
+  "license": "MIT",
+  "homepage": "https://github.com/GalNahum/brockma",
+  "main": "index.js",
+  "scripts": {
+    "test": "node ./node_modules/gulp/bin/gulp.js",
+    "watch": "node ./node_modules/gulp/bin/gulp.js watch",
+    "release": "npm version patch"
+  },
+  "keywords": [
+    "sass",
+    "scss",
+    "css",
+    "toolkit",
+    "tools"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GalNahum/brockma.git"
+  },
+  "bugs": {
+    "url": "https://github.com/GalNahum/brockma/issues"
+  },
+  "devDependencies": {
+    "del": "^6.0.0",
+    "gulp": "^4.0.2",
+    "gulp-append-prepend": "^1.0.9",
+    "gulp-cssbeautify": "^3.0.0",
+    "gulp-sass": "^5.0.0",
+    "gulp-sourcemaps": "^3.0.0",
+    "node-sass": "^6.0.1",
+    "plugin-error": "^1.0.1",
+    "sass": "^1.39.0",
+    "sass-true": "^6.0.1"
+  }
+}

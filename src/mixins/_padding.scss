@@ -1,0 +1,18 @@
+@mixin padding-start( $padding ) {
+  padding-#{$start-direction}: $padding;
+}
+
+@mixin padding-end( $padding ) {
+  padding-#{$end-direction}: $padding;
+}
+
+@mixin padding-h( $padding... ) {
+  @include padding-start( nth($padding, 1) );
+  @include padding-end( _get-mixin-second-argument($padding) );
+}
+
+@mixin padding-v( $padding... ) {
+  padding-top: nth($padding, 1);
+  padding-bottom: _get-mixin-second-argument($padding);
+}
+

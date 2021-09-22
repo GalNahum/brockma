@@ -1,0 +1,11 @@
+@include it('Outputs a border-left') {
+  @include assert {
+    @include output {
+      @include border-start(1px solid blue);
+    }
+
+    @include expect {
+      border-left: 1px solid blue;
+    }
+  }
+}

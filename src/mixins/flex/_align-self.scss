@@ -1,0 +1,4 @@
+@mixin align-self( $value: auto ) {
+  -webkit-align-self: $value; /* Safari 7.0+ */
+  align-self: $value;
+}

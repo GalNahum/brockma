@@ -1,0 +1,23 @@
+@mixin flex-direction( $direction: row ) {
+  $validator: flex-direction-validator($direction);
+  -webkit-box-orient: $direction;
+  -webkit-box-direction: $direction;
+  -ms-flex-direction: $direction;
+  flex-direction: $direction;
+}
+
+@mixin flex-direction-row() {
+  @include flex-direction( row );
+}
+
+@mixin flex-direction-row-reverse() {
+  @include flex-direction( row-reverse );
+}
+
+@mixin flex-direction-column() {
+  @include flex-direction( column );
+}
+
+@mixin flex-direction-column-reverse() {
+  @include flex-direction( column-reverse );
+}

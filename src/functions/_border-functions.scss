@@ -1,0 +1,11 @@
+@function border-style-validator( $style ) {
+  $allowed_values: (dotted, dashed, solid, double, groove, ridge, inset, outset, none, hidden);
+  @return unknown-named-property-validator("unknown_border_style", "border-style", $style, $allowed_values);
+}
+
+@function border-color-validator( $color ) {
+  @if( type-of($color) != color ) {
+    @return unknown-named-property-validator("unknown_border_color", "border-color", $color);
+  }
+  @return null;
+}

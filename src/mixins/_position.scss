@@ -1,0 +1,19 @@
+@mixin position( $position: null, $top: null, $start: null, $bottom: null, $end: null ) {
+  position: $position;
+  top: $top;
+  #{$start-direction}: $start;
+  bottom: $bottom;
+  #{$end-direction}: $end;
+}
+
+@mixin absolute( $top: null, $start: null, $bottom: null, $end: null ) {
+  @include position(absolute, $top, $start, $bottom, $end);
+}
+
+@mixin relative( $top: null, $start: null, $bottom: null, $end: null ) {
+  @include position(relative, $top, $start, $bottom, $end);
+}
+
+@mixin fixed( $top: null, $start: null, $bottom: null, $end: null ) {
+  @include position(fixed, $top, $start, $bottom, $end);
+}

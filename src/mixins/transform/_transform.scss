@@ -1,0 +1,23 @@
+@mixin transform($transform...) {
+  -webkit-transform: $transform;
+  -ms-transform: $transform; // IE9 only
+  -o-transform: $transform;
+  transform: $transform;
+}
+
+@mixin transform-origin($origin) {
+  -webkit-transform-origin: $origin;
+  -moz-transform-origin: $origin;
+  -ms-transform-origin: $origin; // IE9 only
+  transform-origin: $origin;
+}
+@mixin transform-style($style) {
+  -webkit-transform-style: $style;
+  -moz-transform-style: $style;
+  -ms-transform-style: $style; // IE9 only
+  -o-transform-style: $style;
+  transform-style: $style;
+}
+@mixin transform-perspective($perspective) {
+  @include transform( perspective($perspective) );
+}

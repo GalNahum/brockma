@@ -1,0 +1,17 @@
+@mixin margin-start( $margin ) {
+  margin-#{$start-direction}: $margin;
+}
+
+@mixin margin-end( $margin ) {
+  margin-#{$end-direction}: $margin;
+}
+
+@mixin margin-h( $margin... ) {
+  @include margin-start( nth($margin, 1) );
+  @include margin-end( _get-mixin-second-argument($margin) );
+}
+
+@mixin margin-v( $margin... ) {
+  margin-top: nth($margin, 1);
+  margin-bottom: _get-mixin-second-argument($margin);
+}

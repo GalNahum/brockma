@@ -1,0 +1,7 @@
+dist
+.idea
+lib
+test
+gulpfile.js
+examples
+sandbox

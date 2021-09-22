@@ -1,0 +1,152 @@
+@function icon($character){
+  @return unquote('\"') + unquote(str-insert($character,'\\', 1)) + unquote('\"');
+}
+
+/**
+ * in_list — Checks if a value exists in a list
+ *
+ * @param  $value the needle
+ * @param  $list  the haystack
+ * @return boolen TRUE if $value is found in the $list, FALSE otherwise.
+ */
+@function in-list($value, $list) {
+  @return (null != index($list, $value));
+}
+
+@function _get-mixin-second-argument($args) {
+  @if ( length($args) > 1 ) {
+    @return nth($args, 2);
+  }
+  @return nth($args, 1);
+}
+
+@function map-get-next($map, $key, $fallback: false, $return: value) {
+  // Check if map is valid
+  @if type-of($map) == map {
+    // Check if key exists in map
+    @if map-has-key($map, $key) {
+      // Init index counter variable
+      $i: 0;
+      // Init key index
+      $key-index: false;
+      // Traverse map for key
+      @each $map-key, $map-value in $map {
+        // Update index
+        $i: $i + 1;
+        // If map key found, set key index
+        @if $map-key == $key {
+          $key-index: $i;
+        }
+        // If next index return next value or key based on $return
+        @if $i == $key-index + 1 {
+          @if $return == key {
+            @return $map-key;
+          } @else {
+            @return $map-value;
+          }
+        }
+        // If last entry return false
+        @if $i == length($map) {
+          @return $fallback;
+        }
+      }
+      @warn 'No next map item for key #{$key}';
+      @return $fallback;
+    }
+    @warn 'No valid key #{$key} in map';
+    @return $fallback;
+  }
+  @warn 'No valid map';
+  @return $fallback;
+}
+
+/// Remove the unit of a length
+/// @param {Number} $number - Number to remove unit from
+/// @return {Number} - Unitless number
+@function strip-unit($number) {
+  @if type-of($number) == 'number' and not unitless($number) {
+    @return $number / ($number * 0 + 1);
+  }
+
+  @return $number;
+}
+
+@function str-split($string, $separator) {
+  // empty array/list
+  $split-arr: ();
+  // first index of separator in string
+  $index : str-index($string, $separator);
+  // loop through string
+  @while $index != null {
+    // get the substring from the first character to the separator
+    $item: str-slice($string, 1, $index - 1);
+    // push item to array
+    $split-arr: append($split-arr, $item);
+    // remove item and separator from string
+    $string: str-slice($string, $index + 1);
+    // find new index of separator
+    $index : str-index($string, $separator);
+  }
+  // add the remaining string to list (the last item)
+  $split-arr: append($split-arr, $string);
+
+  @return $split-arr;
+}
+
+@function this() {
+  $rootString: #{&};
+  $parentIndex: str-index($rootString, " ");
+  @if( $parentIndex == null ) {
+    @return $rootString;
+  }
+  $parent: str_slice($rootString, 0, $parentIndex - 1);
+  $children: str_slice($rootString, $parentIndex);
+  $children_args: str-split($children, ' ');
+  @return nth($children_args, length($children_args)) ;
+}
+
+@function is-block($selector: this()) {
+  @return str-index($selector, '__') == null;
+}
+
+@function is-element($selector: this()) {
+  @return str-index($selector, '__') != null;
+}
+
+@function is-modifier($name) {
+  @return str-index($name, '--') != null;
+}
+
+@function create-element($name, $selector: this()) {
+  @return selector-append($selector, "__#{$name}");
+}
+
+@function has-modifier( $selector: this() ) {
+  $has_modifier: false;
+  @if( str-index($selector, '--') != null ) {
+    $has_modifier: true;
+  }
+  @return $has_modifier;
+}
+
+@function has-pseudo( $selector: this() ) {
+  @return str-index($selector, ':') != null;
+}
+
+@function _has-pseudo-error($name: null, $this: this(), $pseudo_selector: "", $mixin_name: "") {
+  $error: (
+    "Trying to use in a pseudo parent selector without passing a $name or $this",
+    'If you would like to use the @mixin #{$mixin_name} in a pseudo parent selector (e.g - &:hover), you must passing a name and a "$this" parent selector to the class (e.g - #{$mixin_name}($name: item, $this: ".list__item") )'
+  );
+  @if( $name == null ) {
+    @if( has-pseudo($this) ) {
+      @return #{$error};
+    }
+  }
+  @else {
+    @if( has-pseudo($this) ) {
+      @return #{$error};
+    }
+  }
+  @return false;
+}

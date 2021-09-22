@@ -1,0 +1,26 @@
+@function repeat-template-area($area-name, $repeat) {
+  $output: ();
+  @for $i from 1 through $repeat {
+    $output: append( $output, $area-name);
+  }
+  @return $output;
+}
+
+@function get-template-areas( $areas: () ) {
+  $output: ();
+  @if type-of($areas) == map {
+    @each $name, $repeat in $areas {
+      $output: append($output, '"#{repeat-template-area($name, $repeat)}"');
+    }
+  }
+  @else {
+    @each $row in $areas {
+      $area: ();
+      @each $name, $repeat in $row {
+        $area: join($area, repeat-template-area($name, $repeat) )
+      }
+      $output: append($output, '"#{$area}"');
+    }
+  }
+  @return #{$output};
+}

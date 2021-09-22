@@ -1,0 +1,38 @@
+@function Error($code, $message: '') {
+  $error: (
+    "code": #{$code},
+    "message": #{$message}
+  );
+  @return $error;
+}
+
+@function is-error( $Error ) {
+  @return $Error != null and map-has-key($Error, "code") and map-has-key($Error, "message");
+}
+
+@function get-error( $Error ) {
+  @return unquote( #{map-values($Error)} );
+}
+
+@function get-error-code( $Error ) {
+  @return unquote( map-get($Error, "code") );
+}
+
+@function get-error-message( $Error ) {
+  @return unquote( map-get($Error, "message") );
+}
+
+@function _unknown-named-property-validator($error-code, $named-property, $current-value, $allowed-values) {
+  @if( not in-list($current-value, $allowed-values) ) {
+    @return Error($error-code, 'Try to adding unknown #{$named-property} property named "#{$current-value}", please use a valid property from the following list: #{$allowed-values}.' );
+  }
+  @return null;
+}
+
+@function unknown-named-property-validator($error-code, $named-property, $current-value, $allowed-values: ()) {
+  $validation: _unknown-named-property-validator($error-code, $named-property, $current-value, $allowed-values);
+  @if( is-error( $validation ) ) {
+    @error get-error( $validation );
+  }
+  @return $validation;
+}

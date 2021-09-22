@@ -1,0 +1,22 @@
+@mixin placeholder() {
+  &::-webkit-input-placeholder { // Safari and Chrome
+    @content;
+  }
+  &:-moz-placeholder { /* Firefox 18- */
+    @content;
+  }
+  &::-moz-placeholder {  /* Firefox 19+ */
+    @content;
+  }
+  &:-ms-input-placeholder { // Internet Explorer 10+
+    @content;
+  }
+}
+
+// Placeholder text
+@mixin placeholder-color($color) {
+  @include placeholder() {
+    color: $color;
+    opacity: 1; // Override Firefox's unusual default opacity; see https://github.com/twbs/bootstrap/pull/11526
+  }
+}

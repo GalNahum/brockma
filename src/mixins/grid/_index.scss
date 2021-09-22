@@ -1,0 +1,3 @@
+@mixin grid-template-areas( $areas: () ) {
+  grid-template-areas: get-template-areas($areas);
+}

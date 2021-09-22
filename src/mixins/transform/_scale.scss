@@ -1,0 +1,14 @@
+@mixin scale($ratio...) {
+  @include transform( scale($ratio) );
+}
+
+@mixin scaleX($ratio) {
+  @include transform( scaleX($ratio) );
+}
+@mixin scaleY($ratio) {
+  @include transform( scaleY($ratio) );
+}
+
+@mixin scale3d($x, $y, $z) {
+  @include transform( scale3d($x, $y, $z) );
+}

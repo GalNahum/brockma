@@ -1,0 +1,63 @@
+// Border Radius
+@mixin _make-border-radius-property($value, $property: null, $direction: $start-direction) {
+  @if( $property != null ) {
+    border-#{$property}-#{$direction}-radius: $value;
+  }
+  @else {
+    $prefixes: (-webkit, -khtml, -moz);
+    @each $prefix in $prefixes {
+      #{$prefix}-border-radius: $value;
+    }
+    border-radius: $value;
+  }
+}
+
+@mixin _make-border-top-radius($value, $direction: $start-direction) {
+  @include _make-border-radius-property($value, top, $direction );
+}
+
+@mixin _make-border-bottom-radius($value, $direction: $start-direction) {
+  @include _make-border-radius-property($value, bottom, $direction );
+}
+
+@mixin border-radius($radius) {
+  @include _make-border-radius-property($radius);
+}
+
+@mixin border-top-start-radius($radius) {
+  @include _make-border-top-radius($radius);
+}
+
+@mixin border-top-end-radius($radius) {
+  @include _make-border-top-radius($radius, $end-direction);
+}
+
+@mixin border-top-radius($radius) {
+  @include border-top-start-radius( nth($radius, 1) );
+  @include border-top-end-radius( _get-mixin-second-argument($radius) );
+}
+
+@mixin border-bottom-start-radius($radius) {
+  @include _make-border-bottom-radius($radius);
+}
+
+@mixin border-bottom-end-radius($radius) {
+  @include _make-border-bottom-radius($radius, $end-direction);
+}
+
+@mixin border-bottom-radius($radius...) {
+  @include border-bottom-start-radius( nth($radius, 1) );
+  @include border-bottom-end-radius( _get-mixin-second-argument($radius) );
+}
+
+@mixin border-start-radius($radius...) {
+  @include border-top-start-radius( nth($radius, 1) );
+  @include border-bottom-start-radius( _get-mixin-second-argument($radius) );
+}
+
+@mixin border-end-radius($radius...) {
+  @include border-top-end-radius( nth($radius, 1) );
+  @include border-bottom-end-radius( _get-mixin-second-argument($radius) );
+}
+
+

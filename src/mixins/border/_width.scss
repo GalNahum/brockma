@@ -1,0 +1,21 @@
+@mixin _make-horizontal-border-width($width, $direction: $start-direction) {
+  @include _make-horizontal-border-property($width, $direction, width);
+}
+
+@mixin border-start-width($value) {
+  @include _make-horizontal-border-width($value);
+}
+
+@mixin border-end-width($value) {
+  @include _make-horizontal-border-width($value, $end-direction);
+}
+
+@mixin border-h-width($args...) {
+  @include border-start-width( nth($args, 1) );
+  @include border-end-width( _get-mixin-second-argument($args) );
+}
+
+@mixin border-v-width($args...) {
+  border-top-width: nth($args, 1);
+  border-bottom-width: _get-mixin-second-argument($args);
+}

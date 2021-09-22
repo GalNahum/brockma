@@ -1,0 +1,14 @@
+@mixin visibility( $visibility: visible, $opacity: 1 ) {
+  visibility: $visibility;
+  opacity: $opacity;
+}
+
+@mixin hidden {
+  @include visibility(hidden, 0);
+  @content;
+}
+
+@mixin visible {
+  @include visibility(visible, 1);
+  @content;
+}

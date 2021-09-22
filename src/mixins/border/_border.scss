@@ -1,0 +1,30 @@
+// Border
+@mixin _make-horizontal-border-property($value, $direction: $start-direction, $property: null) {
+  @if( $property != null ) {
+    border-#{$direction}-#{$property}: $value;
+  }
+  @else {
+    border-#{$direction}: $value;
+  }
+}
+
+@mixin border-start($border...) {
+  @include _make-horizontal-border-property($border);
+}
+
+@mixin border-end($border...) {
+  @include _make-horizontal-border-property($border, $end-direction);
+}
+
+@mixin border-h($args...) {
+  @include border-start( nth($args, 1) );
+  @include border-end( _get-mixin-second-argument($args) );
+}
+
+@mixin border-v($args...) {
+  border-top: nth($args, 1);
+  border-bottom: _get-mixin-second-argument($args);
+}
+
+
+

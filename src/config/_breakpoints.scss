@@ -1,0 +1,19 @@
+$xsmaillMax:  479px !default;
+$smallMax:	  767px !default;
+$mediumMax:	  991px !default;
+$largeMax:	  1199px !default;
+$xlargeMax:   1599px !default;
+
+$xsmallMin: $xsmaillMax + 1px !default;
+$smallMin:	$smallMax + 1px !default;
+$mediumMin: $mediumMax + 1px !default;
+$largeMin:  $largeMax + 1px !default;
+$xlargeMin: $xlargeMax + 1px !default;
+
+$grid-breakpoints: (
+  'xs': 0,
+  'sm': $smallMin,
+  'md': $mediumMin,
+  'lg': $largeMin,
+  'xl': $xlargeMin
+) !default;
