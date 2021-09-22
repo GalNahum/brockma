@@ -1,6 +1,6 @@
 {
   "name": "brockma",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "A Sass toolkit library that contain collections of Sass variables, functions and mixins which are based on the Start-End Direction approach.",
   "author": "Gal Nahum",
   "license": "MIT",
